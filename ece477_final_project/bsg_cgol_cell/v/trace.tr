@@ -1,0 +1,176 @@
+#####################################################################
+# |<    4-bits    >|<      1-bit      >|<    1-bit   >|<   8-bits  >|
+# +----------------+-------------------+--------------+-------------+
+# | replay command | 0:update 1:enable | update value | 8 neighbors |
+# +----------------+-------------------+--------------+-------------+
+#####################################################################
+
+# EXAMPLES:
+# Update, value = 1
+0001__0_1_00000000
+# Recv 1, live cell
+0010__000000000_1
+# Enable, 8 neighbors = 8'b01000100
+0001__1_0_01000100
+# Recv 1, a live cell with two live neighbours lives on to the next generation.
+0010__000000000_1
+
+
+# TODO: Add more testing traces here!!!
+# Please create at least 20 test cases:
+# Set the update value to 0, then set enbale to 1 and test with 0-8 live neighbors
+# Set the update value to 1, then set enbale to 1 and test with 0-8 live neighbors
+
+
+#TESTING ALL CASES WITH CELL ALIVE--------------------------------------###
+#update value = 1
+0001__0_1_00000000
+
+
+#enable, 1 living neighbor
+0001__1_0_00000001
+
+#recv 0, live cell with < 2 live neighbors dies (underpopulation)
+0010__000000000_0
+
+#update value = 1
+0001__0_1_00000000
+
+#enable, 2 living neighbors
+0001__1_0_00000011
+
+#recv 0, live cell with 2 or 3 live neighbors lives 
+0010__000000000_1
+
+#update value = 1
+0001__0_1_00000000
+
+#enable, 3 living neighbors
+0001__1_0_00000111
+
+#recv 0, live cell with 2 or 3 live neighbors lives 
+0010__000000000_1
+
+#update value = 1
+0001__0_1_00000000
+
+#enable, 4 living neighbors
+0001__1_0_00001111
+
+#recv 0, live cell with 3 or more live neighbors dies (overpopulation)
+0010__000000000_0
+
+#update value = 1
+0001__0_1_00000000
+
+#enable, 5 living neighbors
+0001__1_0_00011111
+
+#recv 0, live cell with 3 or more neighbors dies (overpopulation)
+0010__000000000_0
+
+#update value = 1
+0001__0_1_00000000
+
+#enable, 6 living neighbors
+0001__1_0_00111111
+
+#recv 0, live cell with 3 or more neighbors dies (overpopulation)
+0010__000000000_0
+
+#update value = 1
+0001__0_1_00000000
+
+#enable, 7 living neighbors
+0001__1_0_01111111
+
+#recv 0, live cell with 3 or more neighbors dies (overpopulation)
+0010__000000000_0
+
+#update value = 1
+0001__0_1_00000000
+
+#enable, 8 living neighbors
+0001__1_0_11111111
+
+#recv 0, live cell with 3 or more neighbors dies (overpopulation)
+0010__000000000_0
+
+#END ALIVE CELL TESTING-----------------------------------------------###
+
+#START TESTING ALL CASES WITH CELL DEAD-------------------------------###
+#update value = 0
+0001_0_0_00000000
+
+#enable, 1 living neighbor
+0001__1_0_00000001
+
+#recv 0, dead cell stays dead unless it has exactly 3 neighbors
+0010__000000000_0
+
+#update value = 0
+0001_0_0_00000000
+
+#enable, 2 living neighbors
+0001__1_0_00000011
+
+#recv 0, dead cell stays dead unless it has exactly 3 neighbors
+0010__000000000_0
+
+#update value = 0
+0001_0_0_00000000
+
+#enable, 3 living neighbors
+0001__1_0_00000111
+
+#recv 1, dead cell alive if it has 3 alive neighbors (reproduction)
+0010__000000000_1
+
+#update value = 0
+0001_0_0_00000000
+
+#enable, 4 living neighbors
+0001__1_0_00001111
+
+#recv 0, dead cell stays dead unless it has exactly 3 neighbors
+0010__000000000_0
+
+#update value = 0
+0001_0_0_00000000
+
+#enable, 5 living neighbors
+0001__1_0_00011111
+
+#recv 0, dead cell stays dead unless it has exactly 3 neighbors
+0010__000000000_0
+
+#update value = 0
+0001_0_0_00000000
+
+#enable, 6 living neighbors
+0001__1_0_00111111
+
+#recv 0, dead cell stays dead unless it has exactly 3 neighbors
+0010__000000000_0
+
+#update value = 0
+0001_0_0_00000000
+
+#enable, 7 living neighbors
+0001__1_0_01111111
+
+#recv 0, dead cell stays dead unless it has exactly 3 neighbors
+0010__000000000_0
+
+#update value = 0
+0001_0_0_00000000
+
+#enable, 8 living neighbors
+0001__1_0_11111111
+
+#recv 0, dead cell stays dead unless it has exactly 3 neighbors
+0010__000000000_0
+#END DEAD CELL TESTING-------------------------------------------------###
+
+# Finish simulation
+0100__0_0_00000000

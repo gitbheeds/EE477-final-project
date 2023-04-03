@@ -1,0 +1,93 @@
+
+# Configure the Final Project Test Suite
+
+# This needs to match the parameters of the DUT instantiated in the testbench
+board: 
+  width: 3
+  max_length: 3
+
+display:
+  # RGB color of 'dead' spaces in the display
+  dead_color:  [128, 128, 128] # grey
+  # RGB color of 'alive' spaces in the display
+  alive_color: [  0, 255,   0] # bright green
+  # size of the grid in the display
+  pixel_size: 20
+  # Durration (ms) of each frame in the display
+  frame_dur_ms: 500
+
+games: [
+  # Flipping Pipe
+  {
+    length: 3,
+    checks: "all",
+    init_alive: [
+      [1,0],
+      [1,1],
+      [1,2]
+    ],
+    origin: "corner"
+  },
+  # Flipping pipe last check
+  {
+    length: 3,
+    checks: "last",
+    init_alive: [
+      [1,0],
+      [1,1],
+      [1,2]
+    ],
+    origin: "corner"
+  },
+  # Glider all
+  {
+    length: 3,
+    checks: "all",
+    init_alive: [
+      [0,0],
+      [0,2],
+      [1,1],
+      [1,2],
+      [2,1]
+    ],
+    origin: "corner"
+  },
+
+  # Glider last
+  {
+    length: 3,
+    checks: "last",
+    init_alive: [
+      [0,0],
+      [0,2],
+      [1,1],
+      [1,2],
+      [2,1]
+    ],
+    origin: "corner"
+  },
+  # Block (static) last
+  {
+    length: 3,
+    checks: "last",
+    init_alive: [
+      [0,0],
+      [1,0],
+      [1,1],
+      [0,1]
+    ],
+    origin: "corner"
+  },
+# Block (static) all
+  {
+    length: 3,
+    checks: "all",
+    init_alive: [
+      [0,0],
+      [1,0],
+      [1,1],
+      [0,1]
+    ],
+    origin: "corner"
+  },
+]
